@@ -1,9 +1,11 @@
-package src.ru.crismer.geometry;
+package ru.crismer.geometry;
 
+import java.util.Arrays;
 
 public class PolygonalChain {
     private Point[] points;
 
+    // Создает ломаную, копируя переданный массив точек.
     public PolygonalChain(Point[] points) {
         if (points == null || points.length == 0) {
             throw new IllegalArgumentException("Массив точек пуст");
@@ -14,6 +16,7 @@ public class PolygonalChain {
         }
     }
 
+    // Возвращает копию массива точек ломаной.
     public Point[] getPoints() {
         Point[] copy = new Point[points.length];
         for (int i = 0; i < points.length; i++) {
@@ -22,6 +25,26 @@ public class PolygonalChain {
         return copy;
     }
 
+    // Возвращает копию точки ломаной по индексу.
+    public Point getPoint(int index) {
+        if (index < 0 || index >= points.length) {
+            throw new IndexOutOfBoundsException("Индекс точки вне диапазона");
+        }
+        return points[index].clone();
+    }
+
+    // Заменяет точку ломаной независимой копией.
+    public void setPoint(int index, Point point) {
+        if (index < 0 || index >= points.length) {
+            throw new IndexOutOfBoundsException("Индекс точки вне диапазона");
+        }
+        if (point == null) {
+            throw new IllegalArgumentException("Точка не может быть null");
+        }
+        points[index] = point.clone();
+    }
+
+    // Вычисляет суммарную длину всех звеньев ломаной.
     public double getLength() {
         double length = 0;
         for (int i = 0; i < points.length - 1; i++) {
@@ -32,6 +55,7 @@ public class PolygonalChain {
         return length;
     }
 
+    // Сравнивает ломаные по количеству и координатам точек.
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -44,6 +68,13 @@ public class PolygonalChain {
         return true;
     }
 
+    // Вычисляет хеш-код ломаной.
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(points);
+    }
+
+    // Формирует строковое представление ломаной.
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Ломаная [");

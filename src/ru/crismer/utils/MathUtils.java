@@ -1,6 +1,11 @@
-package src.ru.crismer.utils;
+package ru.crismer.utils;
 
-public class MathUtils {
+public final class MathUtils {
+    // Запрещает создание экземпляра служебного класса.
+    private MathUtils() {
+    }
+
+    // Складывает переданные числовые значения в вещественной форме.
     public static double sum(Object... numbers) {
         double total = 0;
         for (Object num : numbers) {
